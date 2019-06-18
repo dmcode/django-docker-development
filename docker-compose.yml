@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+  db:
+    image: django_docker:postgres-11
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - "django_docker_pgdata11:/var/lib/postgresql/data"
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      DEV_DB: dev
+
+  app:
+    image: django_docker:django
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-django
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    user: 1000:1000
+
+volumes:
+  django_docker_pgdata11:
+    external:
+      name: django_docker_pgdata11

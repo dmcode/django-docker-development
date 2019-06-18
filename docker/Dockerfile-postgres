@@ -1,0 +1,8 @@
+FROM postgres:11
+
+RUN apt-get update \
+  && apt-get install -y apt-utils
+
+COPY docker/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
+
+EXPOSE 5432

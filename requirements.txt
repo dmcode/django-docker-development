@@ -1,0 +1,9 @@
+Django>=2.2
+django-cors-headers
+django-extensions
+django-reversion
+djangorestframework
+psycopg2-binary
+ldap3
+redis
+requests
